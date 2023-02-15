@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Ольга  Пеганова](https://up.htmlacademy.ru/javascript/28/user/2213805).
-* Наставник: `Павел Позняк`(https://htmlacademy.ru/profile/id907403).
+* Наставник: [Павел Позняк](https://htmlacademy.ru/profile/id907403).
 
 ---
 
