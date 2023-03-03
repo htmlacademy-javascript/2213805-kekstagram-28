@@ -44,7 +44,11 @@ const createPosts = () => ({
 const createComments = () => ({
   id: commentId++,
   avatar: 'img/avatar-${getRandomInteger(1, 6)}.svg',
-  message: Array.from({length: getRandomInteger(1, 2)}, () => MESSAGES[getRandomInteger(0, MESSAGES.length - 1)]),
+  message: Array.from(
+    new Set(
+      Array.from({length: getRandomInteger(1, 2)}, () => MESSAGES[getRandomInteger(0, MESSAGES.length - 1)])
+    )
+  ).join (''),
   name: NAMES[getRandomInteger(0, NAMES.length - 1)],
 });
 
