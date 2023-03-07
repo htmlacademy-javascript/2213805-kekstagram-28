@@ -1,5 +1,5 @@
-import {createPosts} from './data.js';
-createPosts();
+import {getRandomInteger} from './util.js';
+
 const DESCRIPTIONS = ['Посмотрите как мы катались на слонах, восторг!',
   'Год активных тренировок в зале. Ну что, я красотка?',
   'День рождения подруги',
@@ -33,19 +33,9 @@ const POSTS_COUNT = 25;
 let postIndex = 1;
 let commentId = 1;
 
-const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-
-const createPosts = () => ({
-  id: postIndex++,
-  url: 'photos/${postIndex++}.jpg',
-  description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(1, 8)}, createComments),
-});
-
 const createComments = () => ({
   id: commentId++,
-  avatar: 'img/avatar-${getRandomInteger(1, 6)}.svg',
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: Array.from(
     new Set(
       Array.from({length: getRandomInteger(1, 2)}, () => MESSAGES[getRandomInteger(0, MESSAGES.length - 1)])
@@ -54,6 +44,15 @@ const createComments = () => ({
   name: NAMES[getRandomInteger(0, NAMES.length - 1)],
 });
 
-const createPosts = () => Array.from({length: POSTS_COUNT}, createPosts);
+const createPost = () => ({
+  id: postIndex++,
+  url: `photos/${postIndex++}.jpg`,
+  description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
+  likes: getRandomInteger(15, 200),
+  comments: Array.from({length: getRandomInteger(1, 8)}, createComments),
+});
 
-console.log(createPosts());
+
+const createPosts = () => Array.from({length: POSTS_COUNT}, createPost);
+
+export {createPosts};
