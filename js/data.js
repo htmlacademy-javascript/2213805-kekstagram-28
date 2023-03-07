@@ -33,14 +33,6 @@ const POSTS_COUNT = 25;
 let postIndex = 1;
 let commentId = 1;
 
-const createPost = () => ({
-  id: postIndex++,
-  url: `photos/${postIndex++}.jpg`,
-  description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(1, 8)}, createComments),
-});
-
 const createComments = () => ({
   id: commentId++,
   avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
@@ -51,6 +43,15 @@ const createComments = () => ({
   ).join (''),
   name: NAMES[getRandomInteger(0, NAMES.length - 1)],
 });
+
+const createPost = () => ({
+  id: postIndex++,
+  url: `photos/${postIndex++}.jpg`,
+  description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
+  likes: getRandomInteger(15, 200),
+  comments: Array.from({length: getRandomInteger(1, 8)}, createComments),
+});
+
 
 const createPosts = () => Array.from({length: POSTS_COUNT}, createPost);
 
