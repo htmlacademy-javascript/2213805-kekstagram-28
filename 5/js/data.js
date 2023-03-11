@@ -45,7 +45,7 @@ const createComments = () => ({
 });
 
 const createPost = () => ({
-  id: postIndex++,
+  id: postIndex,
   url: `photos/${postIndex++}.jpg`,
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
   likes: getRandomInteger(15, 200),
