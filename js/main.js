@@ -1,4 +1,6 @@
 import {createPosts} from './data.js';
+import {createSimilarPosts} from './sketch.js';
+
 createPosts();
 const DESCRIPTIONS = ['Посмотрите как мы катались на слонах, восторг!',
   'Год активных тренировок в зале. Ну что, я красотка?',
