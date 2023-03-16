@@ -6,7 +6,10 @@ const picturesData = createPosts();
 
 const createPost = (data) => {
   const post = similarListTemplate.cloneNode(true);
-  post.querySelector('.picture__img').src = data.url;
+  const pictureImg = post.querySelector('.picture__img');
+  pictureImg.src = data.url;
+  pictureImg.dataset.likes = data.likes;
+  pictureImg.dataset.commentscount = data.comments.length;
   post.querySelector('.picture__comments').textContent = data.comments.length;
   post.querySelector('.picture__likes').textContent = data.likes;
   return post;
