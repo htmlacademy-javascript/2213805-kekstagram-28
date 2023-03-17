@@ -1,4 +1,5 @@
 import {createPosts} from './data.js';
+import fullPost from './fullPhotos.js';
 
 const similarListTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesList = document.querySelector('.pictures');
@@ -12,6 +13,8 @@ const createPost = (data) => {
   pictureImg.dataset.commentscount = data.comments.length;
   post.querySelector('.picture__comments').textContent = data.comments.length;
   post.querySelector('.picture__likes').textContent = data.likes;
+
+  post.addEventListener('click', () => fullPost(data));
   return post;
 };
 
