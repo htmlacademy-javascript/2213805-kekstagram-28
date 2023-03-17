@@ -34,7 +34,7 @@ const openBigPicture = (post) => {
   bigPicture.classList.remove('hidden');
   fillBigPicture(post);
   document.addEventListener('keydown', onDocumentKeydown);
-  bigPictureClose.removeEventListener('click', onBigPictureCloseClick);
+  bigPictureClose.addEventListener('click', onBigPictureCloseClick);
 };
 
 export {openBigPicture};
