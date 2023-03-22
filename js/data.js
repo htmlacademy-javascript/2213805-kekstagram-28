@@ -49,7 +49,7 @@ const createPost = () => ({
   url: `photos/${postIndex++}.jpg`,
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
   likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(1, 8)}, createComments),
+  comments: Array.from({length: getRandomInteger(10, 20)}, createComments),
 });
 
 
