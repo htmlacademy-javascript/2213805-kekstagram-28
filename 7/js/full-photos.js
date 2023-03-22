@@ -3,7 +3,7 @@ import './sketch.js';
 const COMMENTS_COUNTER = 5;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = document.querySelector('.big-picture__cancel');
-const bigPictureImg  = document.querySelector('.big-picture');
+const bigPictureImg = document.querySelector('.big-picture');
 const bigPictureLikesCounter = document.querySelector('.likes-count');
 const bigPictureCommentsCounter = document.querySelector('.social__comment-count');
 const commentsList = document.querySelector('.social__comments');
