@@ -1,11 +1,11 @@
 import {createPosts} from './data.js';
-import {openBigPicture} from './fullPhotos.js';
+import {openBigPicture} from './full-photos.js';
 
 //нашли фото
 const similarListTemplate = document.querySelector('#picture').content.querySelector('.picture');
 //нашли список фото
 const picturesList = document.querySelector('.pictures');
-//создаем элемент
+//создаем элемент (массив объектов)
 const picturesData = createPosts();
 
 const createPost = (data) => {
@@ -19,13 +19,13 @@ const createPost = (data) => {
   //заполняем из data
   post.querySelector('.picture__comments').textContent = data.comments.length;
   post.querySelector('.picture__likes').textContent = data.likes;
-//вешаем обработчик и по клику открываем пост
+  //вешаем обработчик и по клику открываем пост
   post.addEventListener('click', () => {
     openBigPicture(data);
   });
   return post;
 };
-//перебираем массив, на каждой итерации передаем в функцию, которая создает пост
+//перебираем массив, на каждой итерации передаем в функцию, которая создает пост,вставляем объект в picturesList
 const renderPosts = () => {
   picturesData.forEach((item) => picturesList.append(createPost(item)));
 };
