@@ -5,11 +5,21 @@ const onFormClose = document.querySelector('#upload-cancel');
 const scaleUp = document.querySelector('.scale__control--bigger');
 const scaleDown = document.querySelector('.scale__control--smaller');
 const scaleValue = document.querySelector('.scale__control--value');
+// const effectRadio = document.querySelector('.img-upload__preview img');
+// const effectOriginal = document.querySelector('.effects__preview--none');
+// const effectChrome = document.querySelector('.effects__preview--chrome');
+// const effectSepia = document.querySelector('.effects__preview--sepia');
+// const effectMarvin = document.querySelector('.effects__preview--marvin');
+// const effectPhobos = document.querySelector('.effects__preview--phobos');
+// const effectHeat = document.querySelector('.effects__preview--heat');
 
-new Pristine(loadForm);
+
+// const pristine = new Pristine(loadForm, {
+// });
 
 const uploadFile = document.querySelector('#upload-file');
 
+//Закрытие формы редактирования изображения
 const onDocumentKeydown = (evt) => {
   if(evt.key === 'Escape') {
     evt.preventDefault();
@@ -24,6 +34,7 @@ const closeForm = () => {
   onFormClose.removeEventListener('click', onFormCloseClick);
 };
 
+//изменение масштаба изображения
 const increasePhoto = () => {
   let val = +scaleValue.value.replace('%', '');
   if (val >= 100) {
@@ -53,3 +64,11 @@ uploadFile.addEventListener('change', (evt) => {
   scaleDown.addEventListener('click', decreasePhoto);
 });
 
+//Наложение эффекта на изображение
+// const createEffect = () => {
+//   uploadPreviewImage.src = window.URL.createObjectURL(evt.target.files[0]);
+//   uploadPreviewImage.classList.add('effects__preview--none');
+// };
+
+
+//Интенсивность эффекта
