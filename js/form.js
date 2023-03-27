@@ -1,23 +1,21 @@
+import { reset } from "browser-sync";
+
 const loadForm = document.querySelector('.img-upload__form');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
+const body = document.querySelector('body');
 const uploadPreviewImage = document.querySelector('.img-upload__preview img');
 const onFormClose = document.querySelector('#upload-cancel');
-const scaleUp = document.querySelector('.scale__control--bigger');
-const scaleDown = document.querySelector('.scale__control--smaller');
-const scaleValue = document.querySelector('.scale__control--value');
-// const effectRadio = document.querySelector('.img-upload__preview img');
-// const effectOriginal = document.querySelector('.effects__preview--none');
-// const effectChrome = document.querySelector('.effects__preview--chrome');
-// const effectSepia = document.querySelector('.effects__preview--sepia');
-// const effectMarvin = document.querySelector('.effects__preview--marvin');
-// const effectPhobos = document.querySelector('.effects__preview--phobos');
-// const effectHeat = document.querySelector('.effects__preview--heat');
+const fileUpload = document.querySelector('#upload-file');
+const formSubmit = document.querySelector('#submit');
+const hashtagField = document.querySelector('.text__hashtags');
+const commentField = document.querySelector('.text__description');
 
 
-// const pristine = new Pristine(loadForm, {
-// });
-
-const uploadFile = document.querySelector('#upload-file');
+const pristine = new Pristine(loadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper__error',
+});
 
 //Закрытие формы редактирования изображения
 const onDocumentKeydown = (evt) => {
@@ -27,48 +25,54 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const showForm = () => {
+  uploadOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
+};
+
 const closeForm = () => {
+  loadForm.reset();
+  resetScale();
+  resetEffects();
+  pristine.reset();
   document.body.classList.remove('modal-open');
   uploadOverlay.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
   onFormClose.removeEventListener('click', onFormCloseClick);
 };
 
-//изменение масштаба изображения
-const increasePhoto = () => {
-  let val = +scaleValue.value.replace('%', '');
-  if (val >= 100) {
-    return;
-  }
-  val = val + 25;
-  scaleValue.value = `${val}%`;
-  uploadPreviewImage.style.transform =`scale(${val/100})`;
+//хэштеги валидатор
+let MAX_HASHTAG_COUNT = 5;
+
+const isValidtag = (tag) => VALID_SYMBOLS.test(tag);
+
+const hasValidCount = (tags) => tags.length <= MAX_HASHTAG_COUNT;
+
+const hasUniqueTags = (tags) => {
+  const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+  return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
-const decreasePhoto = () => {
-  let val = +scaleValue.value.replace('%', '');
-  if (val <= 25) {
-    return;
-  }
-  val = val - 25;
-  scaleValue.value = `${val}%`;
-  uploadPreviewImage.style.transform =`scale(${val/100})`;
+const validateTags = (value) => {
+  const tags = value
+    .trim()
+    .split(' ')
+    .filter((tag) => tag.trim().length);
+  return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidtag);
 };
 
-uploadFile.addEventListener('change', (evt) => {
-  uploadOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  uploadPreviewImage.src = window.URL.createObjectURL(evt.target.files[0]);
-  onFormClose.addEventListener('click', closeForm);
-  scaleUp.addEventListener('click', increasePhoto);
-  scaleDown.addEventListener('click', decreasePhoto);
-});
+pristine.addValidator(
+  hashtagField,
+  validateTags,
+  TAG_ERROR_TEXT
+);
 
-//Наложение эффекта на изображение
-// const createEffect = () => {
-//   uploadPreviewImage.src = window.URL.createObjectURL(evt.target.files[0]);
-//   uploadPreviewImage.classList.add('effects__preview--none');
-// };
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+  pristine.validate();
+};
 
-
-//Интенсивность эффекта
+fileUpload.addEventListener('change', onFileInputChange);
+onFormClose.addEventListener('click', closeForm);
+loadForm.addEventListener('submit', formSubmit);
