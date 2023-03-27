@@ -1,48 +1,51 @@
-import { reset } from "browser-sync";
+import {resetEffects} from './effects.js';
+import {resetScale} from './scaling.js';
 
-const loadForm = document.querySelector('.img-upload__form');
+const form = document.querySelector('.img-upload__form');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
-const uploadPreviewImage = document.querySelector('.img-upload__preview img');
-const onFormClose = document.querySelector('#upload-cancel');
-const fileUpload = document.querySelector('#upload-file');
-const formSubmit = document.querySelector('#submit');
+const cancelButton = document.querySelector('#upload-cancel');
+const fileField = document.querySelector('#upload-file');
+// const formSubmit = document.querySelector('#submit');
 const hashtagField = document.querySelector('.text__hashtags');
-const commentField = document.querySelector('.text__description');
 
-
-const pristine = new Pristine(loadForm, {
+const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper__error',
 });
 
-//Закрытие формы редактирования изображения
-const onDocumentKeydown = (evt) => {
-  if(evt.key === 'Escape') {
-    evt.preventDefault();
-    closeForm();
-  }
-};
-
-const showForm = () => {
+const showModal = () => {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const closeForm = () => {
-  loadForm.reset();
+const hideModal = () => {
+  form.reset();
   resetScale();
   resetEffects();
   pristine.reset();
-  document.body.classList.remove('modal-open');
   uploadOverlay.classList.add('hidden');
-  document.addEventListener('keydown', onDocumentKeydown);
-  onFormClose.removeEventListener('click', onFormCloseClick);
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-//хэштеги валидатор
+const onDocumentKeydown = (evt) => {
+  if(evt.key === 'Escape') {
+    evt.preventDefault();
+    hideModal();
+  }
+};
+
+const onCancelButtonclick = () => {
+  hideModal();
+};
+
+const onFileInputChange = () => {
+  showModal();
+};
+
 let MAX_HASHTAG_COUNT = 5;
 
 const isValidtag = (tag) => VALID_SYMBOLS.test(tag);
@@ -64,8 +67,7 @@ const validateTags = (value) => {
 
 pristine.addValidator(
   hashtagField,
-  validateTags,
-  TAG_ERROR_TEXT
+  validateTags
 );
 
 const onFormSubmit = (evt) => {
@@ -73,6 +75,6 @@ const onFormSubmit = (evt) => {
   pristine.validate();
 };
 
-fileUpload.addEventListener('change', onFileInputChange);
-onFormClose.addEventListener('click', closeForm);
-loadForm.addEventListener('submit', formSubmit);
+fileField.addEventListener('change', onFileInputChange);
+cancelButton.addEventListener('click', onCancelButtonclick);
+form.addEventListener('submit', onFormSubmit);
