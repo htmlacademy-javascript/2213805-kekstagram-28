@@ -1,5 +1,5 @@
 import {createPosts} from './data.js';
-import {openBigPicture} from './full-photos.js';
+import {openBigPicture} from './full-Photos.js';
 
 //нашли фото
 const similarListTemplate = document.querySelector('#picture').content.querySelector('.picture');
