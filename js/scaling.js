@@ -1,49 +1,43 @@
-const uploadPreviewImage = document.querySelector('.img-upload__preview img');
-const scaleUp = document.querySelector('.scale__control--bigger');
-const scaleDown = document.querySelector('.scale__control--smaller');
-const scaleValue = document.querySelector('.scale__control--value');
-
 const SCALE_STEP = 25;
-const MIN_SCALE = 25;
-const MAX_SCALE = 100;
-const DEFAULT_SCALE = 100;
+const MIN_SCALE = '25%';
+const MAX_SCALE = '100%';
+const PERCENT_DIVIDER = 100;
 
-const scaleImage = (value) => {
-  uploadPreviewImage.style.transform =`scale(${val/100})`;
-  scaleValue.value = `${value}%`;
+const previewImage = document.querySelector('.img-upload__preview img');
+const scaleUpButton = document.querySelector('.scale__control--bigger');
+const scaleDownButton = document.querySelector('.scale__control--smaller');
+const scaleInput = document.querySelector('.scale__control--value');
+
+
+const changeScale = (value) => {
+  previewImage.style.transform = `scale(${+value.replace('%', '') / PERCENT_DIVIDER})`;
 };
 
-const decreasePhoto = () => {
-  const currentValue = parseInt(scaleValue.value, 10);
-  let newValue = currentValue - SCALE_STEP;
-  if (newValue < MIN_SCALE) {
-    newValue = MIN_SCALE;
+const onSmallerButtonclick = () => {
+  if (scaleInput.value !== MIN_SCALE) {
+    scaleInput.value = `${+scaleInput.value.replace('%', '') - SCALE_STEP}%`;
+    changeScale(scaleInput.value);
   }
-  scaleImage(newValue);
 };
 
-const increasePhoto = () => {
-  const currentValue = parseInt(scaleValue.value, 10);
-  let newValue = currentValue + SCALE_STEP;
-  if (newValue < MAX_SCALE) {
-    newValue = MAX_SCALE;
+const onBiggerButtonclick = () => {
+  if (scaleInput.value !== MAX_SCALE) {
+    scaleInput.value = `${+scaleInput.value.replace('%', '') + SCALE_STEP}%`;
+    changeScale(scaleInput.value);
   }
-  scaleImage(newValue);
 };
 
-const resetScale = () => scaleImage(DEFAULT_SCALE);
+const activateScale = () => {
+  scaleUpButton.addEventListener('click', onBiggerButtonclick);
+  scaleDownButton.addEventListener('click', onSmallerButtonclick);
+}
 
-scaleDown.addEventListener('click', decreasePhoto);
-scaleUp.addEventListener('click', increasePhoto);
+const resetScale = () => changeScale(scaleInput.value);
 
-export {resetScale};
-
-
-
-
+export {activateScale, resetScale};
 
 
-//изменение масштаба изображения - мой первоначальный вариант
+//изменение масштаба изображения - мой первоначальный вариант - позже убрать
 // const increasePhoto = () => {
 //   let val = +scaleValue.value.replace('%', '');
 //   if (val >= 100) {
