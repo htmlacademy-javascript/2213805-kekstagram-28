@@ -1,5 +1,5 @@
 import { addFormAction } from './form.js';
-import {renderPosts} from './sketch.js';
+import {getPicturesData} from './sketch.js';
 
-renderPosts();
+getPicturesData();
 addFormAction();

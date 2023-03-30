@@ -1,12 +1,12 @@
-import {createPosts} from './data.js';
 import {openBigPicture} from './full-Photos.js';
+import { getData } from './api.js';
 
+const GET_URL = 'https://28.javascript.pages.academy/kekstagram/data';
+const ERROR_TIMEOUT = 10000;
 //нашли фото
 const similarListTemplate = document.querySelector('#picture').content.querySelector('.picture');
 //нашли список фото
 const picturesList = document.querySelector('.pictures');
-//создаем элемент (массив объектов)
-const picturesData = createPosts();
 
 const createPost = (data) => {
   //клонируем
@@ -26,8 +26,31 @@ const createPost = (data) => {
   return post;
 };
 //перебираем массив, на каждой итерации передаем в функцию, которая создает пост,вставляем объект в picturesList
-const renderPosts = () => {
-  picturesData.forEach((item) => picturesList.append(createPost(item)));
+const renderPosts = (data) => {
+  data.forEach((item) => picturesList.append(createPost(item)));
 };
 
-export {renderPosts};
+const onGetSuccess = (data) => renderPosts(data);
+
+const onGetFail = () => {
+  const errorBlock = document.createElement('div');
+  errorBlock.style.position = 'fixed';
+  errorBlock.style.top = '0';
+  errorBlock.style.left = '0';
+  errorBlock.style.height = '100%';
+  errorBlock.style.width = '100%';
+  errorBlock.style.color = 'yellow';
+  errorBlock.style.backgroundColor = 'blue';
+  errorBlock.style.textAlign = 'center';
+  errorBlock.textContent = 'Произошла ошибка загрузки';
+  errorBlock.style.padding = '30px';
+  document.body.append(errorBlock);
+
+  setTimeout(() => {
+    errorBlock.remove();
+  }, ERROR_TIMEOUT);
+};
+
+const getPicturesData = () => getData(GET_URL, onGetSuccess, onGetFail);
+
+export {getPicturesData};
