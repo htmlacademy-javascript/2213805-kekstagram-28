@@ -1,7 +1,8 @@
-import { renderPosts } from './sketch.js';
-import {shuffleArray} from './util.js';
+import {renderPosts} from './sketch.js';
+import {shuffleArray, debounce} from './util.js';
 
 const RANDOM_COMMENTS_COUNT = 10;
+const REDO_DELAY = 500;
 
 const imgFilters = document.querySelector('.img-filters');
 
@@ -22,17 +23,20 @@ const redoPosts = (data, id) => {
   renderPosts(sortArray);
 };
 
+//вызываем функия с 2 аргументами(коллбэк и тайм-аут)
+const redoTimeout = debounce((data, id) => redoPosts(data, id), REDO_DELAY);
+
 const onImageFiltersClick = (evt, data) => {
   if (evt.target.closest('.img-filters__button') && !evt.target.closest('.img-filters__button--active')) {
-    document.querySelector('.img-filters__button--active').classList.remove('.img-filters__button--active');
+    document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
     evt.target.classList.add('.img-filters__button--active');
     const id = evt.target.id;
-    redoPosts(data, id);
+    redoTimeout(data, id);
   }
 };
 
 const initiateFilter = (data) => {
-  imgFilters.classList.remove('.img-filters--inactive');
+  imgFilters.classList.remove('img-filters--inactive');
   imgFilters.addEventListener('click', (evt) => {
     onImageFiltersClick(evt, data);
   });
