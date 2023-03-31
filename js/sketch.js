@@ -1,5 +1,6 @@
 import {openBigPicture} from './full-Photos.js';
 import { getData } from './api.js';
+import {initiateFilter} from './filters.js';
 
 const GET_URL = 'https://28.javascript.pages.academy/kekstagram/data';
 const ERROR_TIMEOUT = 10000;
@@ -30,7 +31,10 @@ const renderPosts = (data) => {
   data.forEach((item) => picturesList.append(createPost(item)));
 };
 
-const onGetSuccess = (data) => renderPosts(data);
+const onGetSuccess = (data) => {
+  renderPosts(data);
+  initiateFilter(data);
+};
 
 const onGetFail = () => {
   const errorBlock = document.createElement('div');
@@ -53,4 +57,4 @@ const onGetFail = () => {
 
 const getPicturesData = () => getData(GET_URL, onGetSuccess, onGetFail);
 
-export {getPicturesData};
+export {getPicturesData, renderPosts};
