@@ -29,7 +29,7 @@ const redoTimeout = debounce((data, id) => redoPosts(data, id), REDO_DELAY);
 const onImageFiltersClick = (evt, data) => {
   if (evt.target.closest('.img-filters__button') && !evt.target.closest('.img-filters__button--active')) {
     document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-    evt.target.classList.add('.img-filters__button--active');
+    evt.target.classList.add('img-filters__button--active');
     const id = evt.target.id;
     redoTimeout(data, id);
   }
