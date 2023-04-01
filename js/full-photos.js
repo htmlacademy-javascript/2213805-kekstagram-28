@@ -59,7 +59,7 @@ const fillBigPicture = (post) => {
   bigPictureCaption.textContent = post.description;
 };
 
-const closeBigPicture = () => {
+function closeBigPicture() {
   document.body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
@@ -67,14 +67,14 @@ const closeBigPicture = () => {
 
   comments = [];
   showingComments = 0;
-};
+}
 
 const onCommentsLoadClick = (evt) => {
   evt.preventDefault();
   renderComments();
 };
 
-const openBigPicture = (post) => {
+function openBigPicture(post) {
   comments = post.comments;
   commentsList.innerHTML = '';
   document.body.classList.add('modal-open');
@@ -84,6 +84,6 @@ const openBigPicture = (post) => {
   document.addEventListener('keydown', onDocumentKeydown);
   bigPictureClose.addEventListener('click', onBigPictureCloseClick);
   bigPictureLoadButton.addEventListener('click', onCommentsLoadClick);
-};
+}
 
 export {openBigPicture};

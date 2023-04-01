@@ -14,17 +14,17 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const closeFailMessage = () => {
+function closeFailMessage() {
   failMessageClone.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
   failMessageClone = '';
-};
+}
 
-const closeSuccessMessage = () => {
+function closeSuccessMessage() {
   successMessageClone.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
   successMessageClone = '';
-};
+}
 
 const onFailMessageButtonClick = (evt) => {
   evt.preventDefault();

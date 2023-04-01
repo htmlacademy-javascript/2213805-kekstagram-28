@@ -1,10 +1,9 @@
 const HASHTAG_SYMBOLS = /^#[a-za-яё0-9]{1,19}$/i;
 const MAX_COMMENTS_LENGTH = 140;
-const MAX_HASHTAG_COUNT  = 5;
+const MAX_HASHTAG_COUNT = 5;
 
 const form = document.querySelector('.img-upload__form');
 const hashtagField = document.querySelector('.text__hashtags');
-const commentField = document.querySelector('.text__description');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -16,8 +15,8 @@ const isValidComment = (comment) => comment.length <= MAX_COMMENTS_LENGTH;
 
 const createHashtagArray = (value) =>
   value.trim()
-  .split(' ')
-  .filter((item) => item);
+    .split(' ')
+    .filter((item) => item);
 
 const isValidHashtag = (value) => {
   if (!value) {
@@ -35,7 +34,7 @@ const isValidCount = (value) => {
 const isUniqueHashtags = (value) => {
   const hashtags = createHashtagArray(value);
   const unigueHashtag = new Set(hashtags);
-  return unigueHashtag.size ===hashtags.length;
+  return unigueHashtag.size === hashtags.length;
 };
 
 const addValidator = () => {

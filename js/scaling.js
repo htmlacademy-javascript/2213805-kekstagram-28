@@ -13,56 +13,25 @@ const changeScale = (value) => {
   previewImage.style.transform = `scale(${+value.replace('%', '') / PERCENT_DIVIDER})`;
 };
 
-const onSmallerButtonclick = () => {
+const onSmallerButtonClick = () => {
   if (scaleInput.value !== MIN_SCALE) {
     scaleInput.value = `${+scaleInput.value.replace('%', '') - SCALE_STEP}%`;
     changeScale(scaleInput.value);
   }
 };
 
-const onBiggerButtonclick = () => {
+const onBiggerButtonClick = () => {
   if (scaleInput.value !== MAX_SCALE) {
     scaleInput.value = `${+scaleInput.value.replace('%', '') + SCALE_STEP}%`;
     changeScale(scaleInput.value);
   }
 };
 
-const activateScale = () => {
-  scaleUpButton.addEventListener('click', onBiggerButtonclick);
-  scaleDownButton.addEventListener('click', onSmallerButtonclick);
+function activateScale() {
+  scaleUpButton.addEventListener('click', onBiggerButtonClick);
+  scaleDownButton.addEventListener('click', onSmallerButtonClick);
 }
 
 const resetScale = () => changeScale(scaleInput.value);
 
 export {activateScale, resetScale};
-
-
-//изменение масштаба изображения - мой первоначальный вариант - позже убрать
-// const increasePhoto = () => {
-//   let val = +scaleValue.value.replace('%', '');
-//   if (val >= 100) {
-//     return;
-//   }
-//   val = val + 25;
-//   scaleValue.value = `${val}%`;
-//   uploadPreviewImage.style.transform =`scale(${val/100})`;
-// };
-
-// const decreasePhoto = () => {
-//   let val = +scaleValue.value.replace('%', '');
-//   if (val <= 25) {
-//     return;
-//   }
-//   val = val - 25;
-//   scaleValue.value = `${val}%`;
-//   uploadPreviewImage.style.transform =`scale(${val/100})`;
-// };
-
-// uploadFile.addEventListener('change', (evt) => {
-//   uploadOverlay.classList.remove('hidden');
-//   body.classList.add('modal-open');
-//   uploadPreviewImage.src = window.URL.createObjectURL(evt.target.files[0]);
-//   onFormClose.addEventListener('click', closeForm);
-//   scaleUp.addEventListener('click', increasePhoto);
-//   scaleDown.addEventListener('click', decreasePhoto);
-// });

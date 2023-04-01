@@ -31,12 +31,12 @@ const renderPosts = (data) => {
   data.forEach((item) => picturesList.append(createPost(item)));
 };
 
-const onGetSuccess = (data) => {
+function onGetSuccess(data) {
   renderPosts(data);
   initiateFilter(data);
-};
+}
 
-const onGetFail = () => {
+function onGetFail() {
   const errorBlock = document.createElement('div');
   errorBlock.style.position = 'fixed';
   errorBlock.style.top = '0';
@@ -53,7 +53,7 @@ const onGetFail = () => {
   setTimeout(() => {
     errorBlock.remove();
   }, ERROR_TIMEOUT);
-};
+}
 
 const getPicturesData = () => getData(GET_URL, onGetSuccess, onGetFail);
 
