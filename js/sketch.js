@@ -4,6 +4,7 @@ import {initiateFilter} from './filters.js';
 
 const GET_URL = 'https://28.javascript.pages.academy/kekstagram/data';
 const ERROR_TIMEOUT = 10000;
+const ERROR_TEXT = 'Произошла ошибка загрузки';
 //нашли фото
 const similarListTemplate = document.querySelector('#picture').content.querySelector('.picture');
 //нашли список фото
@@ -41,13 +42,13 @@ function onGetFail() {
   errorBlock.style.position = 'fixed';
   errorBlock.style.top = '0';
   errorBlock.style.left = '0';
-  errorBlock.style.height = '100%';
+  errorBlock.style.height = '60px';
   errorBlock.style.width = '100%';
   errorBlock.style.color = 'yellow';
   errorBlock.style.backgroundColor = 'blue';
   errorBlock.style.textAlign = 'center';
-  errorBlock.textContent = 'Произошла ошибка загрузки';
-  errorBlock.style.padding = '30px';
+  errorBlock.textContent = ERROR_TEXT;
+  errorBlock.style.padding = '20px';
   document.body.append(errorBlock);
 
   setTimeout(() => {

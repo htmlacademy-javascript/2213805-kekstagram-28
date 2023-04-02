@@ -26,7 +26,7 @@ const onSendFail = () => {
 
 const onDocumentKeydown = (evt) => {
   if(evt.key === 'Escape' && !evt.target.closest('.text__hashtags') &&
-  !evt.target.closest('.text__description')) {
+  !evt.target.closest('.text__description') && !document.querySelector('.error')) {
     evt.preventDefault();
     closeModal();
   }
@@ -38,7 +38,7 @@ function openModal() {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-const onCancelButtonclick = () => closeModal();
+const onCancelButtonClick = () => closeModal();
 const onFileInputChange = (evt) => {
   openModal();
   loadImg(evt);
@@ -66,7 +66,7 @@ function closeModal() {
 
 const addFormAction = () => {
   fileField.addEventListener('change', onFileInputChange);
-  cancelButton.addEventListener('click', onCancelButtonclick);
+  cancelButton.addEventListener('click', onCancelButtonClick);
   effectsField.addEventListener('change', onEffectsFieldChange);
   form.addEventListener('submit', onFormSubmit);
   activateScale();
