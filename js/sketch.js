@@ -1,4 +1,4 @@
-import {openBigPicture} from './full-Photos.js';
+import {openBigPicture} from './full-photos.js';
 import { getData } from './api.js';
 import {initiateFilter} from './filters.js';
 
@@ -32,12 +32,12 @@ const renderPosts = (data) => {
   data.forEach((item) => picturesList.append(createPost(item)));
 };
 
-function onGetSuccess(data) {
+const onGetSuccess = (data) => {
   renderPosts(data);
   initiateFilter(data);
-}
+};
 
-function onGetFail() {
+const onGetFail = () => {
   const errorBlock = document.createElement('div');
   errorBlock.style.position = 'fixed';
   errorBlock.style.top = '0';
@@ -54,7 +54,7 @@ function onGetFail() {
   setTimeout(() => {
     errorBlock.remove();
   }, ERROR_TIMEOUT);
-}
+};
 
 const getPicturesData = () => getData(GET_URL, onGetSuccess, onGetFail);
 

@@ -27,10 +27,10 @@ const onBiggerButtonClick = () => {
   }
 };
 
-function activateScale() {
+const activateScale = () => {
   scaleUpButton.addEventListener('click', onBiggerButtonClick);
   scaleDownButton.addEventListener('click', onSmallerButtonClick);
-}
+};
 
 const resetScale = () => changeScale(scaleInput.value);
 
