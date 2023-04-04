@@ -62,7 +62,7 @@ const fillBigPicture = (post) => {
 function closeBigPicture() {
   document.body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
   bigPictureClose.removeEventListener('click', onBigPictureCloseClick);
 
   comments = [];
