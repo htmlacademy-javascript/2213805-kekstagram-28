@@ -53,14 +53,14 @@ const renderFailMessage = () => {
   document.body.append(failMessageClone);
   document.addEventListener('keydown', onDocumentKeydown);
   failMessageClone.querySelector('.error__button').addEventListener('click', onFailMessageButtonClick);
-  failMessageClone.addEventListener('click', onFailMessageButtonClick);
+  failMessageClone.addEventListener('click', onFailMessageClick);
 };
 
 const renderSuccessMessage = () => {
   successMessageClone = successMessageTemplate.cloneNode(true);
   document.body.append(successMessageClone);
   document.addEventListener('keydown', onDocumentKeydown);
-  successMessageClone.querySelector('.success__button').addEventListener('click', onFailMessageClick);
+  successMessageClone.querySelector('.success__button').addEventListener('click', onSuccessMessageButtonClick);
   successMessageClone.addEventListener('click', onSuccessMessageClick);
 };
 
